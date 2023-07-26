@@ -1,20 +1,15 @@
 import sys
-sys.path.insert(1, "D:\\bots\\ScriptsManager\\lib\\python")
 
-from MyModules import ModuleAutoLoader, ModulesRunner
-from MyIpc import Worker, Control
-
-ipc = Worker()
-progressBar = Control("MyIpcProgressBar", "progressBar")
-ipc.addControl(progressBar)
+from modules.modules_autoloader import ModuleAutoLoader
+from modules.modules_runner import ModulesRunner
 
 def methodCalled(name, count, size):
-    progressBar.setProperty("Title", name)
-    progressBar.setProperty("Maximun", size)
-    progressBar.setProperty("Value", count)
+    print(f"Title: {name}")
+    print(f"Maximun: {size}")
+    print(f"Value {count}")
 
 def onPrint(data):
-    ipc.print(data)
+    print(data)
 
 with ModulesRunner('workers', ['main']) as k:
     k.onMethodCalled = methodCalled
